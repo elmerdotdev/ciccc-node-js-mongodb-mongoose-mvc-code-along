@@ -19,10 +19,12 @@ app.use((req: Request, res: Response) => {
 })
 
 const PORT = process.env.PORT || 3000
-const MONGODB_URI = process.env.DATABASE_URI!
+if (!process.env.DATABASE_URI) {
+  throw Error("Missing connection string")
+}
 
 mongoose
-  .connect(MONGODB_URI, { dbName: 'school' })
+  .connect(process.env.DATABASE_URI, { dbName: 'school' })
   .then(() => {
     console.log(`Connected to MongoDB`)
     app.listen(PORT, () => {
