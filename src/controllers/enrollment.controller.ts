@@ -13,7 +13,7 @@ const getAllEnrollments = async (req: Request, res: Response) => {
 }
 
 // Enroll student to course
-const enrollStudent = async (req: Request, res: Response) => {
+const enrollStudent = async (req: Request<{}, {}, { studentId: string, courseId: string }>, res: Response) => {
   try {
     const { studentId, courseId } = req.body
     const newEnrollment = await Enrollment.create({ studentId, courseId })
